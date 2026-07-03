@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Resume Screener</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="bg-glow"></div>
+    <div class="container">
+        <div class="badge"><i class="fa-solid fa-microchip"></i> AI-Powered Screening</div>
+        <h1>Resume Screener</h1>
+        <p class="subtitle">Upload a resume and a job description — get an instant suitability verdict.</p>
+
+        <form action="/analyze" method="post" enctype="multipart/form-data">
+            <label for="resume">
+                <i class="fa-solid fa-file-arrow-up"></i> Resume (PDF or DOCX)
+            </label>
+            <div class="upload-box" onclick="document.getElementById('resume').click()">
+                <i class="fa-solid fa-cloud-arrow-up upload-icon"></i>
+                <p id="file-name">Click to upload or drag a file here</p>
+                <input type="file" name="resume" id="resume" accept=".pdf,.docx" required
+                       onchange="document.getElementById('file-name').innerText = this.files[0].name">
+            </div>
+
+            <label for="job_description">
+                <i class="fa-solid fa-briefcase"></i> Job Description
+            </label>
+            <textarea name="job_description" id="job_description" rows="7" placeholder="Paste the job description here..." required></textarea>
+
+            <button type="submit"><i class="fa-solid fa-bolt"></i> Analyze Resume</button>
+        </form>
+    </div>
+</body>
+</html>
