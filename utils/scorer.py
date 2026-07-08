@@ -11,25 +11,43 @@ def clean_text(text):
     return text
 
 
+def skill_coverage_score(expanded_jd, resume_text):
+    """Percentage of JD/skill keywords found in the resume."""
+    jd_words = set(clean_text(expanded_jd).split())
+    resume_words = set(clean_text(resume_text).split())
+
+    if not jd_words:
+        return 0
+
+    matched = jd_words.intersection(resume_words)
+    return round((len(matched) / len(jd_words)) * 100, 2)
+
+
 def get_match_score(resume_text, job_description):
-    job_description = expand_query(job_description)
+    expanded_jd = expand_query(job_description)
 
     resume_clean = clean_text(resume_text)
-    jd_clean = clean_text(job_description)
+    jd_clean = clean_text(expanded_jd)
 
-    vectorizer = TfidfVectorizer(stop_words='english')
+    # TF-IDF cosine similarity (captures overall relevance/context)
+    vectorizer = TfidfVectorizer(stop_words='english', ngram_range=(1, 2))
     vectors = vectorizer.fit_transform([resume_clean, jd_clean])
-
     similarity = cosine_similarity(vectors[0:1], vectors[1:2])[0][0]
-    score = round(similarity * 100, 2)
+    tfidf_score = similarity * 100
 
-    return score
+    # Skill-coverage score (captures "how many required skills are present")
+    coverage_score = skill_coverage_score(expanded_jd, resume_text)
+
+    # Blend both — coverage weighted higher since it matters more to users
+    final_score = round((tfidf_score * 0.4) + (coverage_score * 0.6), 2)
+
+    return final_score
 
 
 def get_verdict(score):
-    if score >= 35:
+    if score >= 70:
         return {"label": "Strong Match", "message": "This resume aligns well with the job requirements.", "level": "good", "emoji": "🎉"}
-    elif score >= 18:
+    elif score >= 45:
         return {"label": "Moderate Match", "message": "This resume partially matches. Consider tailoring it further.", "level": "moderate", "emoji": "🤔"}
     else:
         return {"label": "Not Suitable", "message": "This resume doesn't match well. Try another resume or revise it.", "level": "bad", "emoji": "😞"}
