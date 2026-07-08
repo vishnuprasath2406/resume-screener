@@ -1,16 +1,54 @@
 ROLE_SKILLS = {
-    "full stack developer": "javascript python react nodejs html css sql mongodb express api git github rest",
-    "frontend developer": "javascript react html css typescript redux tailwind figma responsive design ui ux git",
-    "backend developer": "python java nodejs express django flask sql mongodb postgresql api rest git docker",
-    "data analyst": "python sql excel powerbi tableau pandas numpy data visualization statistics reporting",
-    "data scientist": "python machine learning pandas numpy scikit-learn tensorflow pytorch sql statistics deep learning",
-    "software engineer": "python java c++ data structures algorithms git github system design api database",
-    "python developer": "python flask django rest api sql git github postgresql mongodb oop unit testing",
-    "java developer": "java spring boot hibernate sql microservices rest api git maven junit",
-    "devops engineer": "docker kubernetes aws jenkins ci cd terraform linux git ansible cloud monitoring",
-    "cloud engineer": "aws azure gcp docker kubernetes terraform linux networking security devops iam",
-    "mobile developer": "android ios kotlin swift flutter react native java firebase api git",
-    "ui ux designer": "figma sketch adobe xd wireframing prototyping user research design systems css",
+    "full stack developer": (
+        "javascript python react nodejs html css sql mongodb express api "
+        "git github rest django flask mysql sqlite bootstrap oop mvc rbac "
+        "postgresql typescript rest api development"
+    ),
+    "frontend developer": (
+        "javascript react html css typescript redux tailwind figma "
+        "responsive design ui ux git bootstrap vue angular sass webpack"
+    ),
+    "backend developer": (
+        "python java nodejs express django flask sql mongodb postgresql "
+        "api rest git docker mysql sqlite oop mvc rbac spring boot microservices"
+    ),
+    "data analyst": (
+        "python sql excel powerbi tableau pandas numpy data visualization "
+        "statistics reporting matplotlib seaborn dashboards data cleaning"
+    ),
+    "data scientist": (
+        "python machine learning pandas numpy scikit-learn tensorflow "
+        "pytorch sql statistics deep learning nlp data visualization "
+        "feature engineering model deployment"
+    ),
+    "software engineer": (
+        "python java c++ data structures algorithms git github system "
+        "design api database oop django flask rest sql mysql testing"
+    ),
+    "python developer": (
+        "python flask django rest api sql git github postgresql mongodb "
+        "oop unit testing mysql sqlite mvc rbac api development pytest"
+    ),
+    "java developer": (
+        "java spring boot hibernate sql microservices rest api git maven "
+        "junit oop mvc mysql postgresql"
+    ),
+    "devops engineer": (
+        "docker kubernetes aws jenkins ci cd terraform linux git ansible "
+        "cloud monitoring azure gcp bash scripting infrastructure automation"
+    ),
+    "cloud engineer": (
+        "aws azure gcp docker kubernetes terraform linux networking "
+        "security devops iam cloud architecture load balancing monitoring"
+    ),
+    "mobile developer": (
+        "android ios kotlin swift flutter react native java firebase "
+        "api git mobile ui design sqlite rest api"
+    ),
+    "ui ux designer": (
+        "figma sketch adobe xd wireframing prototyping user research "
+        "design systems css responsive design accessibility usability testing"
+    ),
 }
 
 
