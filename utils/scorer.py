@@ -7,12 +7,12 @@ from utils.roles import expand_query
 def clean_text(text):
     text = text.lower()
     text = re.sub(r'[^a-z0-9\s]', ' ', text)
+    text = re.sub(r'\b([a-z]+)\d+\b', r'\1', text)
     text = re.sub(r'\s+', ' ', text).strip()
     return text
 
 
 def skill_coverage_score(expanded_jd, resume_text):
-    """Percentage of JD/skill keywords found in the resume."""
     jd_words = set(clean_text(expanded_jd).split())
     resume_words = set(clean_text(resume_text).split())
 
@@ -23,25 +23,32 @@ def skill_coverage_score(expanded_jd, resume_text):
     return round((len(matched) / len(jd_words)) * 100, 2)
 
 
-def get_match_score(resume_text, job_description):
-    expanded_jd = expand_query(job_description)
-
+def score_single_variant(resume_text, expanded_jd):
     resume_clean = clean_text(resume_text)
     jd_clean = clean_text(expanded_jd)
 
-    # TF-IDF cosine similarity (captures overall relevance/context)
     vectorizer = TfidfVectorizer(stop_words='english', ngram_range=(1, 2))
     vectors = vectorizer.fit_transform([resume_clean, jd_clean])
     similarity = cosine_similarity(vectors[0:1], vectors[1:2])[0][0]
     tfidf_score = similarity * 100
 
-    # Skill-coverage score (captures "how many required skills are present")
     coverage_score = skill_coverage_score(expanded_jd, resume_text)
 
-    # Blend both — coverage weighted higher since it matters more to users
-    final_score = round((tfidf_score * 0.4) + (coverage_score * 0.6), 2)
-
+    final_score = round((tfidf_score * 0.15) + (coverage_score * 0.85), 2)
     return final_score
+
+
+def get_match_score(resume_text, job_description):
+    expanded_variants = expand_query(job_description)
+
+    # Try every stack variant, keep the best-matching one
+    best_score = 0
+    for variant in expanded_variants:
+        score = score_single_variant(resume_text, variant)
+        if score > best_score:
+            best_score = score
+
+    return best_score
 
 
 def get_verdict(score):

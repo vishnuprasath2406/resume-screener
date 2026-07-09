@@ -2,37 +2,146 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Resume Screener</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume Screener — Talent Assessment Platform</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <div class="bg-glow"></div>
-    <div class="container">
-        <div class="badge"><i class="fa-solid fa-microchip"></i> AI-Powered Screening</div>
-        <h1>Resume Screener</h1>
-        <p class="subtitle">Upload a resume and a job description — get an instant suitability verdict.</p>
 
-        <form action="/analyze" method="post" enctype="multipart/form-data">
-            <label for="resume">
-                <i class="fa-solid fa-file-arrow-up"></i> Resume (PDF or DOCX)
-            </label>
-            <div class="upload-box" onclick="document.getElementById('resume').click()">
-                <i class="fa-solid fa-cloud-arrow-up upload-icon"></i>
-                <p id="file-name">Click to upload or drag a file here</p>
-                <input type="file" name="resume" id="resume" accept=".pdf,.docx" required
-                       onchange="document.getElementById('file-name').innerText = this.files[0].name">
+    <header class="site-header">
+        <div class="header-inner">
+            <div class="brand">
+                <span class="brand-mark">RS</span>
+                <div class="brand-text">
+                    <span class="brand-name">Resume Screener</span>
+                    <span class="brand-tagline">Talent Assessment Platform</span>
+                </div>
+            </div>
+            <span class="header-badge"><i class="fa-solid fa-microchip"></i> AI-powered screening</span>
+        </div>
+    </header>
+
+    <main class="hero">
+        <div class="hero-inner">
+            <div class="hero-copy">
+                <span class="eyebrow">Automated candidate evaluation</span>
+                <h1>A precise read on<br>every application.</h1>
+                <p class="lede">Upload a resume and specify a role. Our engine cross-references qualifications against role requirements and returns a structured, quantified assessment.</p>
+                <ul class="hero-points">
+                    <li><span class="point-index">01</span>Skill-coverage analysis against role-specific benchmarks</li>
+                    <li><span class="point-index">02</span>Contextual relevance scoring across the full document</li>
+                    <li><span class="point-index">03</span>A verdict you can act on in seconds, not minutes</li>
+                </ul>
+                <div class="stat-strip">
+                    <div class="stat-item">
+                        <span class="stat-number">12+</span>
+                        <span class="stat-text">Role benchmarks</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">&lt;3s</span>
+                        <span class="stat-text">Average scoring time</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">PDF/DOCX</span>
+                        <span class="stat-text">Formats supported</span>
+                    </div>
+                </div>
             </div>
 
-            <label for="job_description">
-                <i class="fa-solid fa-briefcase"></i> Job Description
-            </label>
-            <textarea name="job_description" id="job_description" rows="7" placeholder="Paste the job description here..." required></textarea>
+            <div class="intake-card">
+                <div class="intake-header">
+                    <span class="intake-label">Assessment intake</span>
+                    <span class="intake-ref">Form 01</span>
+                </div>
 
-            <button type="submit"><i class="fa-solid fa-bolt"></i> Analyze Resume</button>
-        </form>
-    </div>
+                <form action="/analyze" method="post" enctype="multipart/form-data">
+                    <label for="resume"><i class="fa-solid fa-file-arrow-up"></i> Candidate resume (PDF or DOCX)</label>
+                    <div class="upload-box" onclick="document.getElementById('resume').click()">
+                        <i class="fa-solid fa-cloud-arrow-up upload-icon"></i>
+                        <p id="file-name">Click to upload or drag a file here</p>
+                        <input type="file" name="resume" id="resume" accept=".pdf,.docx" required
+                               onchange="document.getElementById('file-name').innerText = this.files[0].name">
+                    </div>
+
+                    <label for="job_description"><i class="fa-solid fa-briefcase"></i> Target role or job description</label>
+                    <textarea name="job_description" id="job_description" rows="6" placeholder="e.g. Full stack developer, or paste a full job description" required></textarea>
+
+                    <button type="submit"><i class="fa-solid fa-bolt"></i> Run assessment</button>
+                </form>
+
+                <div class="intake-footer">
+                    <i class="fa-solid fa-lock"></i> Files are processed for scoring only and are not stored.
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <section class="steps-section">
+        <div class="section-inner">
+            <span class="section-eyebrow">Process</span>
+            <h2 class="section-title">How the assessment works</h2>
+            <div class="steps-grid">
+                <div class="step-card">
+                    <span class="step-number">01</span>
+                    <i class="fa-solid fa-file-arrow-up step-icon"></i>
+                    <h3>Upload the resume</h3>
+                    <p>Submit a candidate's resume as a PDF or DOCX file. No account or setup required.</p>
+                </div>
+                <div class="step-card">
+                    <span class="step-number">02</span>
+                    <i class="fa-solid fa-briefcase step-icon"></i>
+                    <h3>Specify the role</h3>
+                    <p>Enter a job title or paste a full job description. Either works — the engine expands short titles into a full skill benchmark.</p>
+                </div>
+                <div class="step-card">
+                    <span class="step-number">03</span>
+                    <i class="fa-solid fa-chart-simple step-icon"></i>
+                    <h3>Review the report</h3>
+                    <p>Get a quantified match score and a clear verdict, backed by skill-coverage and relevance analysis.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="features-section">
+        <div class="section-inner">
+            <span class="section-eyebrow">Methodology</span>
+            <h2 class="section-title">What the engine evaluates</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <i class="fa-solid fa-list-check feature-icon"></i>
+                    <h3>Skill coverage</h3>
+                    <p>Checks how many of the role's core skills and tools are present in the resume, benchmarked per job title.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fa-solid fa-diagram-project feature-icon"></i>
+                    <h3>Contextual relevance</h3>
+                    <p>Compares overall document content against the role, not just isolated keyword hits.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fa-solid fa-layer-group feature-icon"></i>
+                    <h3>Role benchmarking</h3>
+                    <p>Scores against curated skill profiles for common roles — from full-stack development to data science.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fa-solid fa-gauge-high feature-icon"></i>
+                    <h3>Instant verdict</h3>
+                    <p>Returns a clear strong / moderate / not-suitable rating so decisions don't wait on manual review.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="site-footer">
+        <div class="footer-inner">
+            <span>&copy; 2026 Resume Screener</span>
+            <a href="https://github.com/vishnuprasath2406/resume-screener" target="_blank" rel="noopener">Built by Vishnu Prasath</a>
+        </div>
+    </footer>
+
 </body>
 </html>

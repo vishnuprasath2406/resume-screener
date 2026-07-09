@@ -2,33 +2,84 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Result - Resume Screener</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assessment result — Resume Screener</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <div class="bg-glow"></div>
-    <div class="container result-container">
-        <h1>Analysis Result</h1>
 
-        <div class="gauge" style="--score: {{ score }}">
-            <div class="gauge-inner">
-                <span class="gauge-value">{{ score }}%</span>
-                <span class="gauge-label">Match Score</span>
+    <header class="site-header">
+        <div class="header-inner">
+            <div class="brand">
+                <span class="brand-mark">RS</span>
+                <div class="brand-text">
+                    <span class="brand-name">Resume Screener</span>
+                    <span class="brand-tagline">Talent Assessment Platform</span>
+                </div>
+            </div>
+            <span class="header-badge"><i class="fa-solid fa-microchip"></i> AI-powered screening</span>
+        </div>
+    </header>
+
+    <main class="report-section">
+        <div class="report-card">
+            <div class="report-letterhead">
+                <div>
+                    <span class="report-kicker">Candidate assessment report</span>
+                    <span class="report-date">{{ report_date|default('') }}</span>
+                </div>
+                <span class="report-seal">RS</span>
+            </div>
+
+            <div class="report-body">
+                <div class="score-block">
+                    <div class="score-ring-wrap">
+                        <svg class="score-ring" viewBox="0 0 140 140" role="img" aria-label="Match score">
+                            <circle class="ring-track" cx="70" cy="70" r="60"></circle>
+                            <circle class="ring-fill ring-{{ verdict.level }}" cx="70" cy="70" r="60"
+                                    style="stroke-dasharray: 377; stroke-dashoffset: {{ (377 - (377 * score / 100))|round|int }};"></circle>
+                        </svg>
+                        <div class="score-ring-label">
+                            <span class="score-number">{{ score }}</span>
+                            <span class="score-percent">%</span>
+                        </div>
+                    </div>
+                    <div class="verdict-block">
+                        <span class="verdict-badge level-{{ verdict.level }}">
+                            <i class="fa-solid {% if verdict.level == 'good' %}fa-circle-check{% elif verdict.level == 'moderate' %}fa-triangle-exclamation{% else %}fa-circle-xmark{% endif %}"></i>
+                            {{ verdict.label }}
+                        </span>
+                        <p class="verdict-message">{{ verdict.message }}</p>
+                    </div>
+                </div>
+
+                <div class="report-divider"></div>
+
+                <div class="report-meta">
+                    <div class="meta-row">
+                        <span class="meta-label">Assessment method</span>
+                        <span class="meta-value">TF-IDF relevance + skill-coverage scoring</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="report-footer">
+                <span>Generated automatically by Resume Screener</span>
+                <a href="/" class="reset-btn"><i class="fa-solid fa-arrow-rotate-left"></i> Run another assessment</a>
             </div>
         </div>
+    </main>
 
-        <div class="verdict verdict-{{ verdict.level }}">
-            <i class="fa-solid {% if verdict.level == 'good' %}fa-circle-check{% elif verdict.level == 'moderate' %}fa-triangle-exclamation{% else %}fa-circle-xmark{% endif %}"></i>
-            <div>
-                <strong>{{ verdict.label }}</strong>
-                <p>{{ verdict.message }}</p>
-            </div>
+    <footer class="site-footer">
+        <div class="footer-inner">
+            <span>&copy; 2026 Resume Screener</span>
+            <a href="https://github.com/vishnuprasath2406/resume-screener" target="_blank" rel="noopener">Built by Vishnu Prasath</a>
         </div>
+    </footer>
 
-        <a href="/" class="btn-secondary"><i class="fa-solid fa-arrow-rotate-left"></i> Try Another Resume</a>
-    </div>
 </body>
 </html>
